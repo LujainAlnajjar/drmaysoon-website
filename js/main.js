@@ -219,61 +219,33 @@ document.addEventListener('DOMContentLoaded', () => {
     statsObserver.observe(heroStats);
   }
 
-  // --- 5. CONTACT FORM MOCK SUBMISSION ---
+  // --- 5. CONTACT FORM (Netlify) ---
+  // Netlify handles submission natively via data-netlify="true".
+  // We validate first; block POST only when invalid so Netlify always
+  // receives valid data via the browser's native form action.
   const contactForm = document.getElementById('contact-form');
-  const submitBtn = document.getElementById('submit-btn');
-  const formStatus = document.getElementById('form-status');
+  const formStatus  = document.getElementById('form-status');
 
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const currentLang = htmlElement.getAttribute('data-lang');
-      const isAr = currentLang === 'ar';
-
-      // Basic validation
+      const isAr = document.documentElement.getAttribute('data-lang') === 'ar';
       let isValid = true;
-      const inputs = contactForm.querySelectorAll('input, textarea, select');
 
-      inputs.forEach(input => {
+      contactForm.querySelectorAll('input[required], textarea[required], select[required]').forEach(input => {
         input.classList.remove('error');
-        if (!input.value.trim() && input.hasAttribute('required')) {
-          isValid = false;
-          input.classList.add('error');
-        }
+        if (!input.value.trim()) { isValid = false; input.classList.add('error'); }
       });
 
       if (!isValid) {
-        formStatus.textContent = isAr
-          ? 'يرجى ملء جميع الحقول المطلوبة.'
-          : 'Please fill out all required fields.';
-        formStatus.className = 'error-msg';
-        return;
+        e.preventDefault();   // block only on validation failure
+        if (formStatus) {
+          formStatus.textContent = isAr
+            ? 'يرجى ملء جميع الحقول المطلوبة.'
+            : 'Please fill in all required fields.';
+          formStatus.className = 'error-msg';
+        }
       }
-
-      // Show loading state
-      submitBtn.classList.add('btn-loading');
-      formStatus.textContent = '';
-      formStatus.className = '';
-
-      // Simulate network request
-      setTimeout(() => {
-        submitBtn.classList.remove('btn-loading');
-
-        formStatus.textContent = isAr
-          ? 'شكراً لك! تم إرسال رسالتك بنجاح. سنتواصل معك قريباً.'
-          : 'Thank you! Your message has been sent successfully. We will be in touch soon.';
-        formStatus.className = 'success';
-
-        contactForm.reset();
-
-        // Clear status after 5 seconds
-        setTimeout(() => {
-          formStatus.textContent = '';
-          formStatus.className = '';
-        }, 5000);
-
-      }, 1500);
+      // if valid → browser native POST proceeds to Netlify ✓
     });
   }
 
@@ -372,4 +344,55 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   revealElements.forEach(el => scrollObserver.observe(el));
+});
+
+/* ─── Adaptive Floating Socials Contrast ─── */
+document.addEventListener("DOMContentLoaded", function () {
+  const floatingSocials = document.querySelector('.floating-socials');
+  const adaptiveSections = document.querySelectorAll('.hero-section, .about-section, .vision-section, .training-section, .research-section, .gallery-section, .contact-section, footer');
+
+  if (floatingSocials && adaptiveSections.length > 0) {
+    const checkFloatingContrast = () => {
+      const widgetRect = floatingSocials.getBoundingClientRect();
+      const widgetCenterY = widgetRect.top + (widgetRect.height / 2);
+
+      let activeSection = null;
+      for (let i = 0; i < adaptiveSections.length; i++) {
+        const rect = adaptiveSections[i].getBoundingClientRect();
+        if (widgetCenterY >= rect.top && widgetCenterY <= rect.bottom) {
+          activeSection = adaptiveSections[i];
+          break;
+        }
+      }
+
+      if (activeSection) {
+        // Sections defined as strictly Dark/Navy based on stylesheet parameters
+        const isDarkSection = activeSection.classList.contains('hero-section') ||
+                              activeSection.classList.contains('vision-section') ||
+                              activeSection.classList.contains('research-section') ||
+                              activeSection.classList.contains('contact-section') ||
+                              activeSection.tagName.toLowerCase() === 'footer';
+
+        if (isDarkSection) {
+          floatingSocials.classList.add('dark-mode');
+        } else {
+          floatingSocials.classList.remove('dark-mode');
+        }
+      }
+    };
+
+    let scrollTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!scrollTicking) {
+        window.requestAnimationFrame(() => {
+          checkFloatingContrast();
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    }, { passive: true });
+    
+    // Trigger initial check on load
+    setTimeout(checkFloatingContrast, 150);
+  }
 });
