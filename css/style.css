@@ -230,6 +230,15 @@ html[data-lang="ar"] .btn {
   flex-shrink: 0;
 }
 
+.nav-logo-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(201, 168, 76, 0.25);
+  flex-shrink: 0;
+}
+
 .logo-seal {
   width: 46px;
   height: 46px;
@@ -3250,4 +3259,14 @@ html[data-lang="ar"] .vision-list li {
 
 .tl-card i, .course-card[style*="var(--navy)"] i, .tl-card .course-tag {
     color: var(--gold) !important;
+}
+
+/* ─── FOOTER LOGO OVERRIDE ─── */
+.footer-logo-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(201, 168, 76, 0.25);
+  flex-shrink: 0;
 }
