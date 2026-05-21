@@ -190,12 +190,93 @@ html[data-lang="ar"] .btn {
 }
 
 /* ─── NAVBAR ─── */
+.announcement-bar {
+  background-color: var(--navy-dark);
+  color: var(--gold);
+  padding: 10px 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: block;
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.announcement-bar:hover {
+  background-color: rgba(201, 168, 76, 0.05);
+  color: var(--gold-light);
+  box-shadow: inset 0 0 10px rgba(201, 168, 76, 0.1);
+}
+
+html[data-lang="ar"] .announcement-bar {
+  font-family: var(--font-arabic);
+}
+
+.announcement-bar {
+  background-color: var(--navy-dark);
+  padding: 10px 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+.marquee-wrapper {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: max-content;
+  animation: marquee-scroll 75s linear infinite;
+}
+
+.marquee-link {
+  color: #f8f9fa;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0 1.5rem;
+  /* هاي اللي بتبعد الكلمات عن بعض */
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.marquee-link:hover {
+  color: var(--gold);
+  text-shadow: 0 0 8px rgba(201, 168, 76, 0.4);
+}
+
+.marquee-divider {
+  color: var(--gold);
+  opacity: 0.6;
+  padding: 0 0.5rem;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.announcement-bar:hover .marquee-content {
+  animation-play-state: paused;
+}
+
 #navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: var(--nav-h);
   z-index: 1000;
   background: #0B1223;
   /* solid — prevents hero diagonal pattern bleed-through */
@@ -213,9 +294,8 @@ html[data-lang="ar"] .btn {
 .nav-container {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0.75rem clamp(1rem, 4vw, 2.5rem);
-  /* vertical padding for breathing room */
-  height: 100%;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+  height: var(--nav-h);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1125,7 +1205,8 @@ html[data-lang="ar"] .humanitarian-card p {
 
 .course-card {
   background: var(--white);
-  border: 1px solid rgba(27, 42, 74, 0.08); /* Adapting to cream background */
+  border: 1px solid rgba(27, 42, 74, 0.08);
+  /* Adapting to cream background */
   border-radius: var(--radius-md);
   padding: 2rem;
   position: relative;
@@ -1826,7 +1907,7 @@ html[data-lang="ar"] .research-cta p {
 }
 
 /* ── Filter Buttons Contextual Contrast (Dark/Navy Sections) ── */
-.section-header.light ~ .gallery-filters .filter-btn,
+.section-header.light~.gallery-filters .filter-btn,
 .section.dark .filter-btn,
 .section[style*="var(--navy)"] .filter-btn {
   background: rgba(255, 255, 255, 0.05);
@@ -1834,7 +1915,7 @@ html[data-lang="ar"] .research-cta p {
   color: rgba(255, 255, 255, 0.75);
 }
 
-.section-header.light ~ .gallery-filters .filter-btn:hover,
+.section-header.light~.gallery-filters .filter-btn:hover,
 .section.dark .filter-btn:hover,
 .section[style*="var(--navy)"] .filter-btn:hover {
   background: rgba(201, 168, 76, 0.15);
@@ -1842,7 +1923,7 @@ html[data-lang="ar"] .research-cta p {
   border-color: rgba(201, 168, 76, 0.3);
 }
 
-.section-header.light ~ .gallery-filters .filter-btn.active,
+.section-header.light~.gallery-filters .filter-btn.active,
 .section.dark .filter-btn.active,
 .section[style*="var(--navy)"] .filter-btn.active {
   background: var(--gold);
@@ -2053,33 +2134,28 @@ html[data-lang="ar"] .form-group label {
 
 .form-group input,
 .form-group textarea,
+/* ─── القائمة المنسدلة (النسخة المستقرة المضمونة) ─── */
 .form-group select {
   background: rgba(255, 255, 255, 0.08);
   border: 1.5px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-sm);
   padding: 0.85rem 1rem;
   color: var(--white);
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  transition: var(--transition);
   outline: none;
   width: 100%;
-}
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  cursor: pointer;
 
-html[data-lang="ar"] .form-group input,
-html[data-lang="ar"] .form-group textarea,
-html[data-lang="ar"] .form-group select {
-  font-family: var(--font-arabic);
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  /* هاد السطر رح يجبر المتصفح يرجع السهم الأصلي بس بلون فاتح وفخم */
+  color-scheme: dark;
 }
 
 .form-group select option {
-  background: var(--navy);
+  background-color: var(--navy-dark);
   color: var(--white);
+  padding: 10px;
 }
 
 .form-group input:focus,
@@ -3142,13 +3218,13 @@ html[data-lang="ar"] .vision-card h3 {
   font-size: 1.25rem;
 }
 
-.vision-card > p {
+.vision-card>p {
   color: rgba(255, 255, 255, 0.75);
   font-size: 1rem;
   line-height: 1.85;
 }
 
-html[data-lang="ar"] .vision-card > p {
+html[data-lang="ar"] .vision-card>p {
   font-family: var(--font-arabic);
   line-height: 1.95;
 }
@@ -3197,22 +3273,22 @@ html[data-lang="ar"] .vision-list li {
 
 /* ─── FLOATING SOCIALS OVERRIDE ─── */
 .floating-socials {
-    /* Default (Light/Cream Section): Light Glass container, Dark Icons */
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    
-    /* The glass edge */
-    border: 1px solid rgba(27, 42, 74, 0.1) !important;
-    border-right: 1px solid rgba(27, 42, 74, 0.05) !important;
-    border-bottom: 1px solid rgba(27, 42, 74, 0.05) !important;
-    
-    /* Floating shadow */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
-    
-    /* Reset padding/shape if needed */
-    border-radius: 40px !important;
-    padding: 0.5rem !important;
+  /* Default (Light/Cream Section): Light Glass container, Dark Icons */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+
+  /* The glass edge */
+  border: 1px solid rgba(27, 42, 74, 0.1) !important;
+  border-right: 1px solid rgba(27, 42, 74, 0.05) !important;
+  border-bottom: 1px solid rgba(27, 42, 74, 0.05) !important;
+
+  /* Floating shadow */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+
+  /* Reset padding/shape if needed */
+  border-radius: 40px !important;
+  padding: 0.5rem !important;
 }
 
 .floating-socials a {
@@ -3229,19 +3305,19 @@ html[data-lang="ar"] .vision-list li {
 
 /* ── ADAPTIVE CONTRAST (DARK MODE) ── */
 .floating-socials.dark-mode {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.01)) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.01)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
 }
 
 .floating-socials.dark-mode a {
-    color: var(--white) !important;
+  color: var(--white) !important;
 }
 
 .floating-socials.dark-mode a:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* ─── CATASTROPHIC TEXT CONTRAST FIX ─── */
@@ -3250,15 +3326,117 @@ html[data-lang="ar"] .vision-list li {
 .pub-card[style*="var(--navy)"] *,
 [class*="-card bg-navy"] *,
 [style*="rgba(15, 23, 42"] * {
-    color: var(--white) !important;
+  color: var(--white) !important;
 }
 
-.tl-card p, .course-card[style*="var(--navy)"] p, .pub-card[style*="var(--navy)"] p {
-    color: rgba(255, 255, 255, 0.85) !important;
+.tl-card p,
+.course-card[style*="var(--navy)"] p,
+.pub-card[style*="var(--navy)"] p {
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
-.tl-card i, .course-card[style*="var(--navy)"] i, .tl-card .course-tag {
-    color: var(--gold) !important;
+.tl-card i,
+.course-card[style*="var(--navy)"] i,
+.tl-card .course-tag {}
+
+/* ─── EXIT INTENT POPUP ─── */
+.exit-popup-overlay {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  /* على اليسار عشان ما يضرب بالمربعات الطافية اللي على اليمين */
+  z-index: 9999;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-110%);
+  /* بكون مخفي برا الشاشة من اليسار */
+  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s ease;
+}
+
+/* لما ياخذ كلاس show بيزحف للشاشة بسلاسة */
+.exit-popup-overlay.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.exit-popup-modal {
+  background: #0F1E36 !important;
+  /* لون كحلي فاخر مصمت وبدون خلفية مغطية للشاشة */
+  border: 1px solid rgba(201, 168, 76, 0.4) !important;
+  border-radius: 12px !important;
+  padding: 1.25rem 1.5rem !important;
+  max-width: 350px;
+  width: 100%;
+  text-align: right;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.exit-popup-close {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  font-size: 1.3rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.exit-popup-close:hover {
+  color: var(--gold);
+}
+
+.exit-popup-content h3 {
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+  font-size: 1.05rem;
+}
+
+.exit-popup-content p {
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 1rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+#exit-popup-cta {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+}
+
+/* ─── SKELETON PLACEHOLDERS ─── */
+@keyframes placeholderPulse {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.placeholder-skeleton {
+  animation: placeholderPulse 1.5s infinite ease-in-out;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.placeholder-card {
+  pointer-events: none;
+  border: 1px dashed rgba(201, 168, 76, 0.3);
+}
+
+.tl-card.placeholder-card {
+  background: rgba(255, 255, 255, 0.03);
 }
 
 /* ─── FOOTER LOGO OVERRIDE ─── */
@@ -3269,4 +3447,30 @@ html[data-lang="ar"] .vision-list li {
   border-radius: 50%;
   box-shadow: 0 4px 16px rgba(201, 168, 76, 0.25);
   flex-shrink: 0;
+}
+
+/* تأثير النبض الخفيف على الشعار في القائمة والفوتر */
+.nav-logo-image,
+.footer-logo-image {
+  transition: transform 0.3s ease;
+}
+
+.nav-logo-image:hover,
+.footer-logo-image:hover {
+  transform: scale(1.08);
+  /* تكبير بنسبة 8% */
+}
+
+/* تأثير التوهج والتكبير على بطاقة "خبيرة التربية الخاصة" */
+.hero-badge {
+  transition: all 0.3s ease;
+}
+
+.hero-badge:hover {
+  transform: scale(1.05);
+  /* تكبير بنسبة 5% */
+  box-shadow: 0 0 15px rgba(201, 168, 76, 0.5);
+  /* توهج باللون الذهبي */
+  cursor: default;
+  /* عشان يبين إنه مش زر بنكبس عليه */
 }
