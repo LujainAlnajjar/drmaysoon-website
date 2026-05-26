@@ -59,6 +59,25 @@
 
   <link rel="stylesheet" href="css/style.css" />
 </head>
+<div id="eid-banner"
+  style="position: fixed; top: 0; left: 0; width: 100%; background: linear-gradient(90deg, var(--navy-dark, #1A2A3A) 0%, var(--gold, #C9A84C) 100%); color: #fff; text-align: center; padding: 12px 40px; font-weight: 600; font-size: 1.1rem; z-index: 999999; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+  ✨ بمناسبة حلول عيد الأضحى المبارك، تتقدم الدكتورة ميسون عثمان بأسمى آيات التهنئة والتبريكات. كل عام وأنتم بخير! 🌙
+  <span
+    onclick="document.getElementById('eid-banner').style.display='none'; document.querySelector('header').style.top='0';"
+    style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 1.5rem; font-weight: bold; opacity: 0.8; transition: 0.3s;"
+    onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">&times;</span>
+</div>
+<script>
+  // كود ذكي لدفش الهيدر لتحت بمقدار طول شريط العيد
+  setTimeout(() => {
+    const header = document.querySelector('header');
+    const banner = document.getElementById('eid-banner');
+    if (header && banner) {
+      header.style.top = banner.offsetHeight + 'px';
+      header.style.transition = 'top 0.3s ease';
+    }
+  }, 100);
+</script>
 
 <body>
 
