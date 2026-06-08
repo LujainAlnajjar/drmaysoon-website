@@ -2435,6 +2435,10 @@ html[data-lang="ar"] .fade-in-right {
     margin-right: auto;
   }
 
+  .timeline-date {
+    display: none;
+  }
+
   .hero-floating-card {
     display: none;
   }
@@ -3473,4 +3477,68 @@ html[data-lang="ar"] .vision-list li {
   /* توهج باللون الذهبي */
   cursor: default;
   /* عشان يبين إنه مش زر بنكبس عليه */
+}
+
+/* ─── FAQ ─── */
+.faq-section {
+  background: var(--cream);
+  padding: 4rem 0;
+}
+.faq-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.faq-item {
+  background: var(--white);
+  border: 1px solid rgba(27, 42, 74, 0.1);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--navy);
+  background: var(--white);
+  transition: var(--transition);
+}
+html[data-lang="ar"] .faq-question {
+  text-align: right;
+  font-family: var(--font-arabic);
+}
+.faq-question:hover {
+  background: rgba(201, 168, 76, 0.05);
+}
+.faq-icon {
+  color: var(--gold);
+  transition: transform 0.3s ease;
+}
+.faq-question[aria-expanded="true"] .faq-icon {
+  transform: rotate(180deg);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0 1.5rem;
+  color: var(--text-muted);
+}
+.faq-answer p {
+  padding-bottom: 1.5rem;
+}
+html[data-lang="ar"] .faq-answer {
+  font-family: var(--font-arabic);
+}
+.faq-question[aria-expanded="true"] + .faq-answer {
+  max-height: 500px;
+  padding-top: 0.5rem;
 }
